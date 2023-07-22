@@ -145,11 +145,15 @@ void RecursePath( LPCTSTR path )
 				CStdioFile fout( stdout );
 				fout.WriteString( csPath + _T( "\n" ) );
 
+				// create a smart pointer to the image's bitmap
 				unique_ptr<Gdiplus::Bitmap> pImage =
 					unique_ptr<Gdiplus::Bitmap>
 					(
 						Gdiplus::Bitmap::FromFile( T2CW( csPath ) )
 					);
+
+				// change the image's resolution to the input 
+				// parameter on the command line
 				pImage->SetResolution( m_fResolution, m_fResolution );
 
 				// save the image to the new path
@@ -317,7 +321,7 @@ int _tmain( int argc, TCHAR* argv[], TCHAR* envp[] )
 		(
 			_T( ".\n" )
 			_T( "  resolution is the horizontal and vertical value\n" )
-			_T( "  to be set.\n" )
+			_T( "  to be set in the image's metadata.\n" )
 			_T( ".\n" )
 		);
 
